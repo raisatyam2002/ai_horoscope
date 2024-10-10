@@ -3,9 +3,9 @@ import { Gender } from "@prisma/client";
 export type userTypes = {
   firstName: string;
   lastName: string;
-  dateOfBirth: Date;
+  dateObj: Date;
   placeOfBirth: string;
-  timeofBirth: Date;
-  gender: Gender;
+  timeOfBirth: string;
+  gender: Gender | undefined;
   email: string;
 };

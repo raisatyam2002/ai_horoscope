@@ -17,8 +17,8 @@ model User{
   id        Int @default(autoincrement()) @unique
   firstName     String
   lastName      String
-  dateOfBirth    DateTime?
-  timeOfBirth   DateTime
+  dateOfBirth    DateTime
+  timeOfBirth   String
   gender        Gender
   placeOfBirth  String
   email         String
