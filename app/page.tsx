@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <div>
-      <Appbar></Appbar>
       <Hero></Hero>
       <About></About>
       <WeeklyHoroscope></WeeklyHoroscope>

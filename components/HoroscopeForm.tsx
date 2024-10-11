@@ -5,7 +5,9 @@ import TextInput from "./ui/TextInput";
 import { Gender } from "@prisma/client";
 import createUser from "../actions/createUser";
 import { cities } from "../data/cities";
+import { useRouter } from "next/navigation";
 export default function HororscopeForm() {
+  const router = useRouter();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [placeOfBirth, setPlaceOfBirth] = useState("");
@@ -24,6 +26,24 @@ export default function HororscopeForm() {
       setIsValidCity(false);
     } else {
       setIsValidCity(true);
+    }
+  }
+  async function handleSubmit() {
+    const dateObj = new Date(dateOfBirth);
+
+    const respone = await createUser({
+      firstName,
+      lastName,
+      dateObj,
+      gender,
+      placeOfBirth,
+      timeOfBirth,
+      email,
+    });
+    if (respone.success) {
+      alert("user created successfully");
+    } else {
+      alert("error while creating a user");
     }
   }
   return (
@@ -106,24 +126,7 @@ export default function HororscopeForm() {
           <div className="mt-4 flex justify-end">
             <Button
               className="border rounded-md bg-[#DBF77E] w-20 h-10"
-              onClick={async () => {
-                const dateObj = new Date(dateOfBirth);
-
-                const respone = await createUser({
-                  firstName,
-                  lastName,
-                  dateObj,
-                  gender,
-                  placeOfBirth,
-                  timeOfBirth,
-                  email,
-                });
-                if (respone.success) {
-                  alert("user created successfully");
-                } else {
-                  alert("error while creating a user");
-                }
-              }}
+              onClick={handleSubmit}
             >
               Submit
             </Button>

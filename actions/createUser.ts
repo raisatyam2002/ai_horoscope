@@ -1,7 +1,6 @@
 "use server";
 import { Gender, PrismaClient } from "@prisma/client";
 import { userTypes } from "../types/userTypes";
-import { log } from "console";
 
 const db = new PrismaClient();
 export default async function createUser(data: userTypes) {
