@@ -42,6 +42,7 @@ export default function HororscopeForm() {
     });
     if (respone.success) {
       alert("user created successfully");
+      router.push(`/horoscope/${firstName}`);
     } else {
       alert("error while creating a user");
     }
