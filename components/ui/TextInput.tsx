@@ -1,5 +1,3 @@
-import { Gender } from "@prisma/client";
-
 export default function TextInput<T>({
   type,
   label,
@@ -12,8 +10,8 @@ export default function TextInput<T>({
   setState: React.Dispatch<React.SetStateAction<T>>;
 }) {
   return (
-    <div className="flex flex-col">
-      <label className="text-white mb-2" htmlFor={label}>
+    <div className="flex flex-col ">
+      <label className="text-white mb-2 sm:mt-0 mt-2" htmlFor={label}>
         {label}
       </label>
       <input

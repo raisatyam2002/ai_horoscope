@@ -6,13 +6,13 @@ export default function WeeklyHoroscope() {
   const router = useRouter();
   return (
     <div className="mt-20">
-      <h1 className="font-normal text-[#DBF77E] text-center">
+      <h1 className="font-normal text-[#DBF77E] text-center ">
         Weekly Hororscope
       </h1>
-      <h1 className="font-custom1 text-3xl text-white text-center">
+      <h1 className="font-custom1  text-2xl sm:text-3xl text-white text-center">
         What the stars have in store for you with our <em>Weekly</em> Horoscope
       </h1>
-      <div className="bg-[url('../images/Shape4.png')] grid grid-cols-3 gap-x-4 gap-y-4 mt-8 px-8 mx-4">
+      <div className="bg-[url('../images/Shape4.png')] sm:grid sm:grid-cols-3 sm:gap-x-4 sm:gap-y-4 mt-8 px-8 sm:mx-4 flex flex-col space-y-2">
         <ZodiacCard zodiacSign="Aries"></ZodiacCard>
         <ZodiacCard zodiacSign="Taurus"></ZodiacCard>
         <ZodiacCard zodiacSign="Gemini"></ZodiacCard>

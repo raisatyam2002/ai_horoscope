@@ -10,11 +10,15 @@ export default function Footer() {
     <div className="mt-20">
       <hr className="border-t-2 border-white w-5/6 mx-auto h-8" />
       <div className="h-64  relative mt-8 z-10">
-        <div className="flex justify-between text-white z-10 mt-2 px-16">
+        <div className="flex sm:flex-row flex-col sm:gap-y-0 gap-y-6  sm:justify-between text-white z-10 mt-2 px-16">
           <div className="">
             <Image src={logo} alt="logo" className="h-10 mb-4"></Image>
-            <h1 className=" ">We help you exploring your </h1>
-            <h1 className=" ">cosmic path</h1>
+            <h1 className="hidden sm:visible ">We help you exploring your </h1>
+            <h1 className="hidden sm:visible ">cosmic path</h1>
+            <h1 className="sm:hidden visible">
+              {" "}
+              We help you exploring your cosmic pat
+            </h1>
             <div className="flex gap-x-4 mt-2  ">
               <Image src={fbIcon} alt="" className="h-6"></Image>
               <Image src={instaIcon} alt="" className="h-6 mt-1"></Image>
@@ -40,8 +44,8 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div>
-            <h1 className="font-custom1 text-[#DBF77E] text-2xl mb-5">
+          <div className="sm:pb-0 pb-6">
+            <h1 className="font-custom1 text-[#DBF77E] text-2xl mb-5 ">
               Subscribe for any updates
             </h1>
             <input
@@ -49,7 +53,7 @@ export default function Footer() {
               type="text"
               placeholder="Your Email"
             ></input>
-            <Button className="border rounded-md bg-[#DBF77E] w-24 h-8 text-black">
+            <Button className="border rounded-md bg-[#DBF77E] w-24 h-8 text-black sm:mt-0 mt-2">
               Subscribe
             </Button>
           </div>
