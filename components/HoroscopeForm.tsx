@@ -42,7 +42,10 @@ export default function HororscopeForm() {
     });
     if (respone.success) {
       alert("user created successfully");
-      router.push(`/horoscope/${firstName}`);
+      if (respone.token) {
+        localStorage.setItem("userToken", respone.token);
+        router.push(`/horoscope/${firstName}`);
+      }
     } else {
       alert("error while creating a user");
     }
@@ -52,35 +55,35 @@ export default function HororscopeForm() {
       <h1 className="text-center text-white font-custom1 text-4xl mb-8">
         Unlock Your Zodiac Secrets
       </h1>
-      <div className="flex justify-center mt-4 bg-">
+      <div className="sm:flex sm:justify-center p-4 mt-4 ">
         <div className="border rounded-md p-6">
-          <div className="flex justify-between gap-x-8 mb-2">
+          <div className="sm:flex sm:justify-between sm:gap-x-8 mb-2">
             <TextInput
               label="First Name"
               type="text"
-              className="w-56 h-8 border rounded-sm p-2"
+              className="sm:w-56 w-full h-8 border rounded-sm p-2"
               setState={setFirstName}
             ></TextInput>
             <TextInput
               label="Last Name"
               type="text"
-              className="w-56 h-8 p-2"
+              className="sm:w-56 w-full h-8 border rounded-sm p-2"
               setState={setLastName}
             ></TextInput>
           </div>
-          <div className="flex justify-between gap-x-8 mb-2">
+          <div className="sm:flex sm:justify-between sm:gap-x-8 mb-2 ">
             <TextInput
               label="Date of Birth"
               type="date"
-              className="w-56 h-8 border rounded-sm p-2"
+              className="sm:w-56 w-full h-8 border rounded-sm p-2"
               setState={setDateofBirth}
             ></TextInput>
-            <div className="flex flex-col">
+            <div className="flex flex-col sm:mt-0 mt-2">
               <label className="text-white mb-2" htmlFor={"Place of Birth"}>
                 Birth Place
               </label>
               <input
-                className="w-56 h-8 border rounded-sm p-2"
+                className="sm:w-56 w-full h-8 border rounded-sm p-2"
                 list="birthPlaces"
                 onChange={(e) => {
                   setPlaceOfBirth(e.target.value);
@@ -99,18 +102,18 @@ export default function HororscopeForm() {
               )}
             </div>
           </div>
-          <div className="flex justify-between gap-x-8 mb-2">
+          <div className="sm:flex sm:justify-between sm:gap-x-8 mb-2">
             <TextInput
               label="Time of Birth "
               type="time"
-              className="w-56 h-8 border rounded-sm p-2"
+              className="sm:w-56 w-full h-8 border rounded-sm p-2"
               setState={setTimeOfBirth}
             ></TextInput>
-            <div className="flex flex-col ">
+            <div className="flex flex-col mt-2 sm:mt-0">
               <label htmlFor="Gender" className="text-white mb-2 ">
                 Gender
               </label>
-              <select className="w-56 h-8 border rounded-sm">
+              <select className="sm:w-56 w-full h-8 border rounded-sm ">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>

@@ -1,11 +1,21 @@
+"use client";
 import Image from "next/image";
 import Button from "./ui/button";
 import logo from "../images/Logo-calestial.png";
+import { useRouter } from "next/navigation";
 export default function Appbar() {
+  const router = useRouter();
   return (
-    <div className=" w-screen flex justify-between p-6 bg-black fixed top-0 z-50">
-      <Image src={logo} alt="logo"></Image>
-      <Button className="border rounded-md bg-[#DBF77E] w-24">
+    <div className=" w-screen flex justify-between p-6 bg-black fixed top-0 z-50 cursor-pointer">
+      <Image
+        src={logo}
+        alt="logo"
+        className=""
+        onClick={() => {
+          router.push("/");
+        }}
+      ></Image>
+      <Button className="border rounded-md bg-[#DBF77E]  w-24">
         Reservation
       </Button>
     </div>

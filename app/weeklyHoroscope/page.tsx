@@ -5,18 +5,18 @@ import Footer from "@/components/Footer";
 export default function () {
   return (
     <div className="text-white relative">
-      <h1 className="font-custom1 text-7xl mt-24 text-center">
+      <h1 className="font-custom1 text-5xl sm:text-7xl mt-24 text-center">
         Weekly Horoscope
       </h1>
       <Image
         src={placeHolder}
         alt="placeholder"
-        className="mt-12 w-[1300px] mx-auto"
+        className="mt-12   md:w-[1300px] mx-auto sm:w[800px] w-[400px]"
       ></Image>
-      <h1 className="text-center font-custom1 text-4xl mt-8">
+      <h1 className="text-center font-custom1 text-2xl sm:text-4xl mt-8">
         What the stars have in store for you with our <em>Weekly Horoscope</em>
       </h1>
-      <div className="grid grid-cols-3 gap-x-4 gap-y-4 mt-8 px-8 mx-4 ">
+      <div className="md:grid md:grid-cols-3 md::gap-x-4 sm:gap-y-4 mt-8 px-8 mx-4 sm:grid sm:grid-cols-2 sm:gap-x-4 ">
         <ZodiacCard zodiacSign="Aries"></ZodiacCard>
         <ZodiacCard zodiacSign="Taurus"></ZodiacCard>
         <ZodiacCard zodiacSign="Gemini"></ZodiacCard>
