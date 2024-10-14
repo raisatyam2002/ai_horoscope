@@ -52,7 +52,7 @@ export default function HororscopeForm() {
   }
   return (
     <div className="mt-6">
-      <h1 className="text-center text-white font-custom1 text-4xl mb-8">
+      <h1 className="text-center text-white font-custom1 text-4xl mb-8 hover:text-[#DBF77E]">
         Unlock Your Zodiac Secrets
       </h1>
       <div className="sm:flex sm:justify-center p-4 mt-4 ">
