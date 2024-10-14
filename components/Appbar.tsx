@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function Appbar() {
   const router = useRouter();
   return (
-    <div className=" w-screen flex justify-between p-6 bg-black fixed top-0 z-50 cursor-pointer">
+    <div className=" w-screen flex justify-between sm:p-6 p-2 bg-black fixed top-0 z-50 cursor-pointer">
       <Image
         src={logo}
         alt="logo"
@@ -15,8 +15,13 @@ export default function Appbar() {
           router.push("/");
         }}
       ></Image>
-      <Button className="border rounded-md bg-[#DBF77E]  w-24">
-        Reservation
+      <Button
+        className="border rounded-md bg-[#DBF77E]  w-32 "
+        onClick={() => {
+          router.push("#horoscope-form");
+        }}
+      >
+        View Horoscope
       </Button>
     </div>
   );

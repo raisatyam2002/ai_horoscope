@@ -1,23 +1,40 @@
+"use client";
+import HororscopeForm from "./HoroscopeForm";
 import Button from "./ui/button";
+import { useRouter } from "next/navigation";
 export default function Hero() {
+  const router = useRouter();
   return (
     <div className="bg-[url('../images/Background.png')] h-screen  relative w-full">
       <div className="absolute   w-full top-44">
-        <h1 className=" text-white text-center text-4xl sm:text-8xl  z-10 mb-6 font-custom1 ">
-          Unveiling the <span className="font-custom2">Universe </span>
-        </h1>
-        <h1 className=" text-white text-4xl sm:text-8xl font-custom1 z-10 text-center ">
-          {" "}
-          <span className="font-custom2">Within </span>You
-        </h1>
+        <div className="text-white hover:text-[#DBF77E]">
+          <h1 className="  text-center text-4xl sm:text-8xl  z-10 mb-6 font-custom1  ">
+            Unveiling the <span className="font-custom2">Universe </span>
+          </h1>
+          <h1 className=" text-4xl sm:text-8xl font-custom1 z-10 text-center ">
+            {" "}
+            <span className="font-custom2">Within </span>You
+          </h1>
+        </div>
+
         <h1 className="text-white mt-4 text-center">
           Celestial helps you explore your cosmic path
         </h1>
         <div className="flex gap-4 mt-4 justify-center">
-          <Button className="border rounded-md bg-[#DBF77E] w-36 h-10 ">
-            Book a Session
+          <Button
+            className="border rounded-md bg-[#DBF77E] w-32 h-10 "
+            onClick={() => {
+              router.push("#horoscope-form");
+            }}
+          >
+            View Horoscope
           </Button>
-          <Button className="border rounded-md text-[#DBF77E] w-36 border-[#DBF77E]">
+          <Button
+            className="border rounded-md text-[#DBF77E] w-36 border-[#DBF77E] "
+            onClick={() => {
+              router.push("/weekly-horoscope");
+            }}
+          >
             Weekly horoscope
           </Button>
         </div>
