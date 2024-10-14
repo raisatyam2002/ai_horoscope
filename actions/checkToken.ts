@@ -1,30 +1,28 @@
 "use server";
 import jwt from "jsonwebtoken";
+
 export default async function checkToken(userToken: string) {
   try {
     if (process.env.jwt) {
       const isVerify = jwt.verify(userToken, process.env.jwt);
-      console.log("verfiy ", isVerify);
+      console.log("verify ", isVerify);
 
-      if (isVerify) {
-        return {
-          success: true,
-        };
-      } else {
-        return {
-          success: false,
-        };
-      }
+      return {
+        success: true,
+        payload: isVerify,
+      };
     } else {
       return {
         success: false,
+        message: "JWT secret is not defined.",
       };
     }
-  } catch (error) {
+  } catch (error: any) {
     console.log("error ", error);
 
     return {
       success: false,
+      message: error.message || "Error verifying token",
     };
   }
 }

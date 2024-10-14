@@ -6,7 +6,7 @@ export default function WeeklyHoroscope() {
   const router = useRouter();
   return (
     <div className="mt-20">
-      <h1 className="font-custom1 text-4xl text-[#DBF77E] text-center ">
+      <h1 className="font-custom1 text-6xl text-[#DBF77E] text-center mb-2 ">
         Weekly Hororscope
       </h1>
       <h1 className="font-custom1  text-2xl sm:text-3xl text-white text-center hover:text-[#DBF77E]">

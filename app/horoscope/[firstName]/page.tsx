@@ -5,6 +5,8 @@ import placeHolder from "../../../images/PlacheHolder3.png";
 import { useEffect, useState } from "react";
 import checkToken from "@/actions/checkToken";
 import { useRouter } from "next/navigation";
+import getUserDetailsFromDb from "@/actions/getUserDetailsFromDb";
+import checkAi from "@/actions/checkAi";
 export default function UserHoroscope() {
   const router = useRouter();
   const params = useParams();
@@ -12,6 +14,11 @@ export default function UserHoroscope() {
   const userToken = localStorage.getItem("userToken");
   const name = Array.isArray(firstName) ? firstName[0] : firstName;
   const [openPanel, setOpenPanel] = useState<string | null>(null);
+  const [general, setGeneral] = useState("");
+  const [health, setHealth] = useState("");
+  const [love, setLove] = useState("");
+  const [career, setCareer] = useState("");
+  const [userId, setUserId] = useState("");
 
   const togglePanel = (panel: string) => {
     setOpenPanel(openPanel === panel ? null : panel);
@@ -21,14 +28,28 @@ export default function UserHoroscope() {
       console.log("userToken ", userToken);
 
       if (userToken) {
-        const response = await checkToken(userToken);
-        console.log("response ", response);
+        try {
+          const response = await checkToken(userToken);
+          console.log("response ", response);
 
-        if (!response.success) {
-          alert("Invalid user details");
+          if (!response.success) {
+            alert("Invalid user details");
+            localStorage.removeItem("userToken");
+            router.push("/");
+          } else {
+            console.log("response2 ", response.payload);
+            if (typeof response.payload == "object") {
+              setUserId(response.payload.userId);
+            }
+          }
+        } catch (error: any) {
+          alert("Error while fetching horoscope");
+          console.error("Error details: ", error);
+
+          if (error.message === "jwt expired") {
+            localStorage.removeItem("userToken");
+          }
           router.push("/");
-        } else {
-          // Continue with your API calls or other logic here
         }
       } else {
         router.push("/");
@@ -36,10 +57,20 @@ export default function UserHoroscope() {
     };
 
     checkUserToken();
-  }, [router]);
+  }, [router, userToken]);
+  useEffect(() => {
+    const getUserDetails = async () => {
+      const getUserDetails = await getUserDetailsFromDb(userId);
+      console.log("userDetails ", getUserDetails);
 
+      const aiResponse = await checkAi(getUserDetails);
+      console.log("ai Response ", aiResponse);
+    };
+    getUserDetails();
+  }, [userId]);
   return userToken ? (
     <div className="text-white mt-36">
+      {/* {userId} */}
       <div className="">
         <div className="hover:text-[#DBF77E]">
           <h1 className="text-center font-custom1 text-3xl">
@@ -77,7 +108,7 @@ export default function UserHoroscope() {
             </h3>
             {openPanel === "general" && (
               <div className="mt-2 max-h-40 transition-all duration-300 text-black">
-                Your health is in a good place today. Stay active and hydrated.
+                {general}
               </div>
             )}
           </div>
@@ -97,7 +128,7 @@ export default function UserHoroscope() {
             </h3>
             {openPanel === "health" && (
               <div className="mt-2 max-h-40 transition-all duration-300 text-black">
-                Your health is in a good place today. Stay active and hydrated.
+                {health}
               </div>
             )}
           </div>
@@ -117,8 +148,7 @@ export default function UserHoroscope() {
             </h3>
             {openPanel === "love" && (
               <div className="mt-2 max-h-40 transition-all duration-300 text-black">
-                Your love life is blossoming, {name}. Spend time with those you
-                care about.
+                {love}
               </div>
             )}
           </div>
@@ -138,8 +168,7 @@ export default function UserHoroscope() {
             </h3>
             {openPanel === "career" && (
               <div className="mt-2 max-h-40 transition-all duration-300 text-black">
-                New opportunities await you. Embrace challenges and learn from
-                them.
+                {career}
               </div>
             )}
           </div>

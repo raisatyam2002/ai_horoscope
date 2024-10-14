@@ -1,4 +1,5 @@
 "use client";
+import HororscopeForm from "./HoroscopeForm";
 import Button from "./ui/button";
 import { useRouter } from "next/navigation";
 export default function Hero() {
@@ -20,7 +21,12 @@ export default function Hero() {
           Celestial helps you explore your cosmic path
         </h1>
         <div className="flex gap-4 mt-4 justify-center">
-          <Button className="border rounded-md bg-[#DBF77E] w-32 h-10 ">
+          <Button
+            className="border rounded-md bg-[#DBF77E] w-32 h-10 "
+            onClick={() => {
+              router.push("#horoscope-form");
+            }}
+          >
             View Horoscope
           </Button>
           <Button

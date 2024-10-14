@@ -15,7 +15,12 @@ export default function Appbar() {
           router.push("/");
         }}
       ></Image>
-      <Button className="border rounded-md bg-[#DBF77E]  w-32 ">
+      <Button
+        className="border rounded-md bg-[#DBF77E]  w-32 "
+        onClick={() => {
+          router.push("#horoscope-form");
+        }}
+      >
         View Horoscope
       </Button>
     </div>

@@ -22,7 +22,9 @@ export default async function createUser(data: userTypes) {
     });
 
     if (process.env.jwt) {
-      const token = jwt.sign({ userId: user.id }, process.env.jwt);
+      const token = jwt.sign({ userId: user.id }, process.env.jwt, {
+        expiresIn: "15m",
+      });
       console.log("token ", token);
       return {
         success: true,
