@@ -7,6 +7,8 @@ import checkToken from "@/actions/checkToken";
 import { useRouter } from "next/navigation";
 import getUserDetailsFromDb from "@/actions/getUserDetailsFromDb";
 import checkAi from "@/actions/checkAi";
+import { userTypes } from "@/types/userTypes";
+import { log } from "console";
 export default function UserHoroscope() {
   const router = useRouter();
   const params = useParams();
@@ -14,6 +16,7 @@ export default function UserHoroscope() {
   const userToken = localStorage.getItem("userToken");
   const name = Array.isArray(firstName) ? firstName[0] : firstName;
   const [openPanel, setOpenPanel] = useState<string | null>(null);
+  const [userDetails, setUserDetails] = useState<userTypes | null>(null);
   const [general, setGeneral] = useState("");
   const [health, setHealth] = useState("");
   const [love, setLove] = useState("");
@@ -61,13 +64,29 @@ export default function UserHoroscope() {
   useEffect(() => {
     const getUserDetails = async () => {
       const getUserDetails = await getUserDetailsFromDb(userId);
-      console.log("userDetails ", getUserDetails);
-
-      const aiResponse = await checkAi(getUserDetails);
-      console.log("ai Response ", aiResponse);
+      setUserDetails(getUserDetails);
     };
     getUserDetails();
   }, [userId]);
+  useEffect(() => {
+    if (userDetails) {
+      const getHoroscopeData = async () => {
+        try {
+          const response = await checkAi(userDetails);
+          if (response.success) {
+            console.log(response);
+
+            console.log("horsocope data ", response.horoscopeData);
+          } else {
+            console.log(response.message);
+          }
+        } catch (error: any) {
+          console.log(error);
+        }
+      };
+      getHoroscopeData();
+    }
+  }, [userDetails]);
   return userToken ? (
     <div className="text-white mt-36">
       {/* {userId} */}
