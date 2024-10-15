@@ -1,14 +1,14 @@
 "use client";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import placeHolder from "../../../images/PlacheHolder3.png";
 import { useEffect, useState } from "react";
 import checkToken from "@/actions/checkToken";
 import { useRouter } from "next/navigation";
 import getUserDetailsFromDb from "@/actions/getUserDetailsFromDb";
 import checkAi from "@/actions/checkAi";
 import { userTypes } from "@/types/userTypes";
-import { log } from "console";
+import { toast } from "react-toastify";
+import HoroscopeFiled from "../../../components/HoroscopeFields";
 export default function UserHoroscope() {
   const router = useRouter();
   const params = useParams();
@@ -22,6 +22,11 @@ export default function UserHoroscope() {
   const [love, setLove] = useState("");
   const [career, setCareer] = useState("");
   const [userId, setUserId] = useState("");
+  const fields = [];
+  fields.push({ name: "general", value: general, color: "orange" });
+  fields.push({ name: "health", value: health, color: "green" });
+  fields.push({ name: "love", value: love, color: "red" });
+  fields.push({ name: "career", value: career, color: "blue" });
 
   const togglePanel = (panel: string) => {
     setOpenPanel(openPanel === panel ? null : panel);
@@ -36,7 +41,7 @@ export default function UserHoroscope() {
           console.log("response ", response);
 
           if (!response.success) {
-            alert("Invalid user details");
+            toast.error("Invalid user details");
             localStorage.removeItem("userToken");
             router.push("/");
           } else {
@@ -46,7 +51,7 @@ export default function UserHoroscope() {
             }
           }
         } catch (error: any) {
-          alert("Error while fetching horoscope");
+          toast.error("Error while fetching horoscope");
           console.error("Error details: ", error);
 
           if (error.message === "jwt expired") {
@@ -75,13 +80,17 @@ export default function UserHoroscope() {
           const response = await checkAi(userDetails);
           if (response.success) {
             console.log(response);
-
-            console.log("horsocope data ", response.horoscopeData);
+            if (response.resJson) {
+              setGeneral(response?.resJson?.general);
+              setHealth(response.resJson.health);
+              setLove(response.resJson.love);
+              setCareer(response.resJson.career);
+            }
           } else {
-            console.log(response.message);
+            console.error(response.message);
           }
         } catch (error: any) {
-          console.log(error);
+          console.error(error);
         }
       };
       getHoroscopeData();
@@ -100,97 +109,26 @@ export default function UserHoroscope() {
             Let’s tune in to your horoscope!
           </h1>
         </div>
-
-        <Image
-          src={placeHolder}
-          alt="placeholder"
-          className="mt-12 w-[1300px] mx-auto mb-4"
-        />
-        {/* <h1 className="text-center font-custom1 text-4xl mt-6 hover:text-[#DBF77E]">
-            Let the magic unfold – keep scrolling for more cosmic wisdom
-          </h1> */}
       </div>
       <div>
         <div className="mt-6">
-          <div
-            onClick={() => togglePanel("general")}
-            className={`cursor-pointer p-4 rounded-lg mt-4 transition-all duration-200 ${
-              openPanel === "general" ? "bg-[#FFCCB3]" : "bg-gray-700"
-            }`}
-          >
-            <h3
-              className={`text-xl ${
-                openPanel != null ? "text-black" : "text-white"
-              } `}
-            >
-              General
-            </h3>
-            {openPanel === "general" && (
-              <div className="mt-2 max-h-40 transition-all duration-300 text-black">
-                {general}
-              </div>
-            )}
-          </div>
+          {fields.map((field: any, index: number) => {
+            const fieldName = field.name;
+            const fieldState = field.value;
+            const color = field.color;
 
-          <div
-            onClick={() => togglePanel("health")}
-            className={`cursor-pointer p-4 rounded-lg mt-4 transition-all duration-200 ${
-              openPanel === "health" ? "bg-green-600" : "bg-gray-700"
-            }`}
-          >
-            <h3
-              className={`text-xl ${
-                openPanel != null ? "text-black" : "text-white"
-              } `}
-            >
-              Health
-            </h3>
-            {openPanel === "health" && (
-              <div className="mt-2 max-h-40 transition-all duration-300 text-black">
-                {health}
+            return (
+              <div key={index}>
+                <HoroscopeFiled
+                  togglePanel={togglePanel}
+                  openPanel={openPanel}
+                  fieldState={fieldState}
+                  fieldName={fieldName}
+                  color={color}
+                />
               </div>
-            )}
-          </div>
-
-          <div
-            onClick={() => togglePanel("love")}
-            className={`cursor-pointer p-4 rounded-lg mt-4 transition-all duration-200 ${
-              openPanel === "love" ? "bg-red-600" : "bg-gray-700"
-            }`}
-          >
-            <h3
-              className={`text-xl ${
-                openPanel != null ? "text-black" : "text-white"
-              } `}
-            >
-              Love
-            </h3>
-            {openPanel === "love" && (
-              <div className="mt-2 max-h-40 transition-all duration-300 text-black">
-                {love}
-              </div>
-            )}
-          </div>
-
-          <div
-            onClick={() => togglePanel("career")}
-            className={`cursor-pointer p-4 rounded-lg mt-4 transition-all duration-200 ${
-              openPanel === "career" ? "bg-blue-600" : "bg-gray-700"
-            }`}
-          >
-            <h3
-              className={`text-xl ${
-                openPanel != null ? "text-black" : "text-white"
-              } `}
-            >
-              Career
-            </h3>
-            {openPanel === "career" && (
-              <div className="mt-2 max-h-40 transition-all duration-300 text-black">
-                {career}
-              </div>
-            )}
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>

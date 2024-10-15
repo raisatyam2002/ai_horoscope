@@ -6,6 +6,7 @@ import { Gender } from "@prisma/client";
 import createUser from "../actions/createUser";
 import { cities } from "../data/cities";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 export default function HororscopeForm() {
   const router = useRouter();
   const [firstName, setFirstName] = useState("");
@@ -29,25 +30,32 @@ export default function HororscopeForm() {
     }
   }
   async function handleSubmit() {
-    const dateObj = new Date(dateOfBirth);
+    try {
+      const dateObj = new Date(dateOfBirth);
 
-    const respone = await createUser({
-      firstName,
-      lastName,
-      dateObj,
-      gender,
-      placeOfBirth,
-      timeOfBirth,
-      email,
-    });
-    if (respone.success) {
-      alert("user created successfully");
-      if (respone.token) {
-        localStorage.setItem("userToken", respone.token);
-        router.push(`/horoscope/${firstName}`);
+      const respone = await createUser({
+        firstName,
+        lastName,
+        dateObj,
+        gender,
+        placeOfBirth,
+        timeOfBirth,
+        email,
+      });
+      if (respone.success) {
+        console.log("debug");
+
+        toast.success("form filled successfully!");
+        if (respone.token) {
+          localStorage.setItem("userToken", respone.token);
+          router.push(`/horoscope/${firstName}`);
+        }
+      } else {
+        toast.error("invalid details");
+        console.log("error while creating a user");
       }
-    } else {
-      alert("error while creating a user");
+    } catch (error) {
+      toast.error("error in while filling form try again after some time");
     }
   }
   return (
