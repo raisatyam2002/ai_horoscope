@@ -15,28 +15,43 @@ export default async function checkAi({
       //     model: openai("gpt-4o-mini"),
       //     prompt: `Generate a horoscope for a person named ${firstName} ${lastName}, born on ${dateObj} at ${timeOfBirth} in ${placeOfBirth}. Please provide the response as a JSON string in the following format:
 
-      //     {
-      //       "general": "One-line general horoscope",
-      //       "health": "One-line health horoscope",
-      //       "love": "One-line love horoscope",
-      //       "career": "One-line career horoscope"
-      //     }
-      //     `,
+      //       {
+      //         "general": "One-line general horoscope",
+      //         "health": "One-line health horoscope",
+      //         "love": "One-line love horoscope",
+      //         "career": "One-line career horoscope"
+      //       }
+      //       `,
       //   });
-      const jsonData = `{
-        "general": "Satyam, this week brings new opportunities for growth and self-discovery.",
-        "health": "Focus on maintaining a balanced diet to boost your energy levels.",
-        "love": "Open communication will strengthen your relationships and deepen connections.",
-        "career": "A collaborative project may lead to unexpected success and recognition."
-      }`;
-      console.log("jsonData ", jsonData);
-      const horoscopeData = await JSON.parse(jsonData);
-      console.log("horoscopedata ", horoscopeData);
+      // const text=jsonData.text;
+      const resJson = {
+        general:
+          "Satyam, this period will bring new opportunities for growth and self-discovery.",
+        health:
+          "Focus on maintaining a balanced lifestyle to enhance your well-being.",
+        love: "Expect meaningful connections to blossom, deepening your relationships.",
+        career:
+          "Your hard work will start to pay off, leading to recognition and new prospects.",
+      };
+
+      //    console.log();
+
+      //   console.log("jsonData ", jsonData);
+      //   const horoscopeData = await JSON.parse(jsonData.general);
+
+      //   console.log("horoscopedata ", text);
+      //   console.log(typeof text);
+      //   const resJson = convertToJson(text);
+
+      console.log(resJson.general);
+      console.log(resJson.love);
+      console.log(resJson.health);
+      console.log(resJson.career);
 
       return {
         success: true,
         message: "horscope fetched successfull",
-        horoscopeData,
+        resJson,
       };
     } else {
       console.log(firstName);
@@ -58,4 +73,11 @@ export default async function checkAi({
       message: error.message,
     };
   }
+}
+function convertToJson(str: string) {
+  const res = str.slice(7, str.length - 3);
+  console.log("resultant string ", res);
+  const resJson = JSON.parse(res);
+
+  return resJson;
 }
