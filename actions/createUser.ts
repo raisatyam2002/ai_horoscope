@@ -11,12 +11,12 @@ export default async function createUser(data: userTypes) {
 
     const user = await db.user.create({
       data: {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        dateOfBirth: new Date(data.dateObj),
-        placeOfBirth: data.placeOfBirth,
-        timeOfBirth: data.timeOfBirth,
-        email: data.email,
+        firstName: data.firstName || "",
+        lastName: data.lastName || "",
+        dateOfBirth: data.dateObj || new Date(),
+        placeOfBirth: data.placeOfBirth || "",
+        timeOfBirth: data.timeOfBirth || "",
+        email: data.email || " ",
         gender: data.gender || Gender.Male,
       },
     });
