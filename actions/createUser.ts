@@ -23,7 +23,7 @@ export default async function createUser(data: userTypes) {
 
     if (process.env.jwt) {
       const token = jwt.sign({ userId: user.id }, process.env.jwt, {
-        expiresIn: "15m",
+        expiresIn: "30m",
       });
       console.log("token ", token);
       return {

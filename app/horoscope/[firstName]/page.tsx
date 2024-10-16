@@ -10,6 +10,7 @@ import { userTypes } from "@/types/userTypes";
 import { toast } from "react-toastify";
 import HoroscopeFiled from "../../../components/HoroscopeFields";
 import Loader from "@/components/Loader";
+import ZodiacSignDetail from "@/components/ZodiacSignDetails";
 export default function UserHoroscope() {
   const router = useRouter();
   const params = useParams();
@@ -23,7 +24,7 @@ export default function UserHoroscope() {
   const [love, setLove] = useState<string | undefined>();
   const [career, setCareer] = useState<string | undefined>();
   const [userId, setUserId] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const fields = [];
   fields.push({ name: "general", value: general, color: "orange" });
   fields.push({ name: "health", value: health, color: "green" });
@@ -105,15 +106,14 @@ export default function UserHoroscope() {
       love !== undefined &&
       career !== undefined
     ) {
-      setLoading(false);
+      //   setLoading(false);
     }
   }, [general, health, love, career]);
   if (loading) {
     return <Loader></Loader>;
   }
-  return userToken ? (
+  return (
     <div className="text-white mt-36">
-      {/* {userId} */}
       <div className="">
         <div className="hover:text-[#DBF77E]">
           <h1 className="text-center font-custom1 text-3xl">
@@ -126,6 +126,9 @@ export default function UserHoroscope() {
         </div>
       </div>
       <div>
+        <div className="mt-6 ">
+          <ZodiacSignDetail />
+        </div>
         <div className="mt-6">
           {fields.map((field: any, index: number) => {
             const fieldName = field.name;
@@ -147,7 +150,5 @@ export default function UserHoroscope() {
         </div>
       </div>
     </div>
-  ) : (
-    <div></div>
   );
 }

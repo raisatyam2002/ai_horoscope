@@ -19,7 +19,7 @@ export default function () {
     };
   }, []);
   return (
-    <div className="text-white mt-64 top-40 text-center font-custom1 text-6xl h-70v overflow-y-hidden ">
+    <div className="text-white mt-96 text-center font-custom1 text-6xl h-full overflow-y-hidden ">
       {loadingText}
     </div>
   );
