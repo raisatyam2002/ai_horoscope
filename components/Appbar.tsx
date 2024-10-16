@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function Appbar() {
   const router = useRouter();
   return (
-    <div className=" w-screen flex justify-between sm:p-6 p-2 bg-black fixed top-0 z-50 cursor-pointer">
+    <div className=" w-screen flex justify-between sm:p-6 p-2 bg-black fixed top-0 z-30 cursor-pointer">
       <Image
         src={logo}
         alt="logo"

@@ -9,6 +9,7 @@ import checkAi from "@/actions/checkAi";
 import { userTypes } from "@/types/userTypes";
 import { toast } from "react-toastify";
 import HoroscopeFiled from "../../../components/HoroscopeFields";
+import Loader from "@/components/Loader";
 export default function UserHoroscope() {
   const router = useRouter();
   const params = useParams();
@@ -17,11 +18,12 @@ export default function UserHoroscope() {
   const name = Array.isArray(firstName) ? firstName[0] : firstName;
   const [openPanel, setOpenPanel] = useState<string | null>(null);
   const [userDetails, setUserDetails] = useState<userTypes | null>(null);
-  const [general, setGeneral] = useState("");
-  const [health, setHealth] = useState("");
-  const [love, setLove] = useState("");
-  const [career, setCareer] = useState("");
+  const [general, setGeneral] = useState<string | undefined>();
+  const [health, setHealth] = useState<string | undefined>();
+  const [love, setLove] = useState<string | undefined>();
+  const [career, setCareer] = useState<string | undefined>();
   const [userId, setUserId] = useState("");
+  const [loading, setLoading] = useState(true);
   const fields = [];
   fields.push({ name: "general", value: general, color: "orange" });
   fields.push({ name: "health", value: health, color: "green" });
@@ -96,6 +98,19 @@ export default function UserHoroscope() {
       getHoroscopeData();
     }
   }, [userDetails]);
+  useEffect(() => {
+    if (
+      general !== undefined &&
+      health !== undefined &&
+      love !== undefined &&
+      career !== undefined
+    ) {
+      setLoading(false);
+    }
+  }, [general, health, love, career]);
+  if (loading) {
+    return <Loader></Loader>;
+  }
   return userToken ? (
     <div className="text-white mt-36">
       {/* {userId} */}
