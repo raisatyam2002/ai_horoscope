@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { zodiacImages } from "@/utils/zodiacImage";
+import { zodiacIcons } from "@/utils/zodiacIcons";
 export default function ZodiacCard({ zodiacSign }: { zodiacSign: string }) {
   return (
     <div className="border rounded-lg flex flex-col items-center text-center p-4  text-white hover:text-[#DBF77E] hover:border-[#DBF77E] sm:my-0 my-2  ">
-      <Image src={zodiacImages[zodiacSign]} alt="aries"></Image>
+      <Image src={zodiacIcons[zodiacSign]} alt="aries"></Image>
       <h1 className=" font-custom1 text-2xl">
         {zodiacSign}(October 04 - Novemver 04 )
       </h1>

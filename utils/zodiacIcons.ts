@@ -13,7 +13,7 @@ import Pisces from "../images/zodiacSign/pisces.png";
 
 import type { StaticImageData } from "next/image";
 
-export const zodiacImages: { [key: string]: StaticImageData } = {
+export const zodiacIcons: { [key: string]: StaticImageData } = {
   Aries: Aries,
   Taurus: Taurus,
   Gemini: Gemini,
