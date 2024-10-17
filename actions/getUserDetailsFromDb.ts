@@ -1,6 +1,6 @@
 "use server";
-import { PrismaClient } from "@prisma/client";
-const db = new PrismaClient();
+
+import db from "../prisma/index";
 export default async function getUserDetailsFromDb(userId: string) {
   const userData = await db.user.findFirst({
     where: {

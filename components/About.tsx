@@ -19,10 +19,11 @@ export default function About() {
             Providing accurate and insightful astrological readings
           </h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta
-            distinctio laudantium doloremque tempore aut molestiae laborum
-            velit. Rerum voluptate quae amet culpa nobis nisi eligendi! Iure
-            dicta reprehenderit eveniet placeat.
+            {" "}
+            Our astrological readings offer a deep dive into your unique cosmic
+            blueprint. By analyzing the positions of celestial bodies at your
+            time of birth, we reveal insights that help you navigate life's
+            challenges and opportunities.{" "}
           </p>
         </div>
         <div className="text-white mb-4 sm:mb-0">
@@ -30,10 +31,10 @@ export default function About() {
             Delivering timely and reliable guidance for your daily life
           </h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta
-            distinctio laudantium doloremque tempore aut molestiae laborum
-            velit. Rerum voluptate quae amet culpa nobis nisi eligendi! Iure
-            dicta reprehenderit eveniet placeat.
+            {" "}
+            We understand that life can be overwhelming. Our daily guidance
+            equips you with practical wisdom to make informed decisions and
+            embrace the present moment with confidence and clarity.{" "}
           </p>
         </div>
         <div className="text-white mb-4 sm:mb-0">
@@ -41,10 +42,10 @@ export default function About() {
             Continuously learning and growing in the field of astrology
           </h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta
-            distinctio laudantium doloremque tempore aut molestiae laborum
-            velit. Rerum voluptate quae amet culpa nobis nisi eligendi! Iure
-            dicta reprehenderit eveniet placeat.
+            Astrology is a journey of self-discovery. We are committed to
+            expanding our knowledge and refining our techniques, ensuring that
+            our readings are not only accurate but also resonate with your
+            evolving journey.
           </p>
         </div>
       </div>
