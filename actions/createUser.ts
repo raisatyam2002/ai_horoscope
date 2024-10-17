@@ -1,8 +1,9 @@
 "use server";
-import { Gender, PrismaClient } from "@prisma/client";
+import { Gender } from "@prisma/client";
+import db from "../prisma/index";
 import { userTypes } from "../types/userTypes";
 import jwt from "jsonwebtoken";
-const db = new PrismaClient();
+
 export default async function createUser(data: userTypes) {
   try {
     console.log("date ", data.dateObj);
