@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import checkToken from "@/actions/checkToken";
 import { useRouter } from "next/navigation";
 import getUserDetailsFromDb from "@/actions/getUserDetailsFromDb";
-import checkAi from "@/actions/checkAi";
+import getHoroscopeDetails from "@/actions/getHoroscopeDetailsAi";
 import { userTypes } from "@/types/userTypes";
 import { toast } from "react-toastify";
 import HoroscopeFiled from "../../../components/HoroscopeFields";
 import Loader from "@/components/Loader";
 import ZodiacSignDetail from "@/components/ZodiacSignDetails";
+import FlipCard from "@/components/CardFlip";
+
 export default function UserHoroscope() {
   const router = useRouter();
   const params = useParams();
@@ -24,9 +26,9 @@ export default function UserHoroscope() {
   const [love, setLove] = useState<string | undefined>();
   const [career, setCareer] = useState<string | undefined>();
   const [userId, setUserId] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const fields = [];
-  fields.push({ name: "general", value: general, color: "orange" });
+  //   fields.push({ name: "general", value: general, color: "orange" });
   fields.push({ name: "health", value: health, color: "green" });
   fields.push({ name: "love", value: love, color: "red" });
   fields.push({ name: "career", value: career, color: "blue" });
@@ -80,7 +82,7 @@ export default function UserHoroscope() {
     if (userDetails) {
       const getHoroscopeData = async () => {
         try {
-          const response = await checkAi(userDetails);
+          const response = await getHoroscopeDetails(userDetails);
           if (response.success) {
             console.log(response);
             if (response.resJson) {
@@ -106,14 +108,14 @@ export default function UserHoroscope() {
       love !== undefined &&
       career !== undefined
     ) {
-      //   setLoading(false);
+      setLoading(false);
     }
   }, [general, health, love, career]);
   if (loading) {
     return <Loader></Loader>;
   }
   return (
-    <div className="text-white mt-36">
+    <div className="text-white mt-36 overflow-y-hidden">
       <div className="">
         <div className="hover:text-[#DBF77E]">
           <h1 className="text-center font-custom1 text-3xl">
@@ -127,26 +129,26 @@ export default function UserHoroscope() {
       </div>
       <div>
         <div className="mt-6 ">
-          <ZodiacSignDetail />
+          <ZodiacSignDetail fieldState={general} />
         </div>
-        <div className="mt-6">
-          {fields.map((field: any, index: number) => {
-            const fieldName = field.name;
-            const fieldState = field.value;
-            const color = field.color;
 
-            return (
-              <div key={index}>
-                <HoroscopeFiled
-                  togglePanel={togglePanel}
-                  openPanel={openPanel}
-                  fieldState={fieldState}
-                  fieldName={fieldName}
-                  color={color}
-                />
-              </div>
-            );
-          })}
+        <div className="">
+          <div className="mt-6 space-y-4 md:space-y-0 md:grid  md:grid-cols-3  md:space-x-5 ml-4 flex-col item-center">
+            {fields.map((field: any, index: number) => {
+              const fieldName = field.name;
+              const fieldState = field.value;
+              const color = field.color;
+              return (
+                <div key={index}>
+                  <FlipCard
+                    fieldState={fieldState}
+                    fieldName={fieldName}
+                    color={color}
+                  ></FlipCard>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
