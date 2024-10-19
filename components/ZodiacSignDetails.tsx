@@ -1,7 +1,11 @@
 import { zodiacImages } from "@/utils/zodiacImages";
 import Image from "next/image";
 import { ZodiacText } from "@/utils/ZodiacText";
-export default function ZodiacSignDetail() {
+export default function ZodiacSignDetail({
+  fieldState,
+}: {
+  fieldState: string | undefined;
+}) {
   const currDate = new Date();
   const currYear = currDate.getFullYear().toString().slice(-2);
   const currMonth = currDate.toLocaleString("default", { month: "short" });
@@ -9,6 +13,7 @@ export default function ZodiacSignDetail() {
   prevDate.setMonth(currDate.getMonth() - 1);
   const prevMonth = prevDate.toLocaleString("default", { month: "short" });
   const nextYear = (currDate.getFullYear() + 1).toString().slice(-2);
+  //   console.log("fieldState ", fieldState);
 
   console.log("Current Year: ", currYear);
   console.log("Current Month: ", currMonth);
@@ -26,7 +31,7 @@ export default function ZodiacSignDetail() {
         <h1 className="text-2xl font-custom1">
           ARIES ({currMonth} {currYear} - {prevMonth} {nextYear})
         </h1>
-        <p className="w-96">{ZodiacText["ARIES"]}</p>
+        <p className="w-96">{fieldState}</p>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 import { openai } from "@ai-sdk/openai";
 import { generateText } from "ai";
 import { userTypes } from "@/types/userTypes";
-export default async function checkAi({
+export default async function getHoroscopeDetails({
   firstName,
   lastName,
   dateObj,

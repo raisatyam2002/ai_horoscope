@@ -43,6 +43,9 @@ const config: Config = {
         "95v": "95vw",
         "100v": "100vw",
       },
+      screens: {
+        md: "1240px",
+      },
     },
   },
   plugins: [],
