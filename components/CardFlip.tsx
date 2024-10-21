@@ -6,7 +6,7 @@ export default function FlipCard({
   color,
 }: {
   fieldName: string;
-  fieldState: string;
+  fieldState: string | undefined;
   color: string;
 }) {
   const styles = {
