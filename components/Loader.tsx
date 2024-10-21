@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { loadingTextArray } from "../utils/loaderStrings";
-export default function () {
+export default function Loader() {
   const [loadingText, setLoadingText] = useState(
     "Consulting the stars... magic is in progress."
   );

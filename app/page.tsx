@@ -1,4 +1,3 @@
-import Appbar from "../components/Appbar";
 import Hero from "../components/HeroSection";
 import About from "../components/About";
 import WeeklyHoroscope from "@/components/WeeklyHororscope";

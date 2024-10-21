@@ -1,6 +1,6 @@
 import { zodiacImages } from "@/utils/zodiacImages";
 import Image from "next/image";
-import { ZodiacText } from "@/utils/ZodiacText";
+
 export default function ZodiacSignDetail({
   fieldState,
 }: {

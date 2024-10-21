@@ -3,7 +3,6 @@ import logo from "../images/Logo-calestial.png";
 import fbIcon from "../Icon/Facebook.png";
 import instaIcon from "../Icon/Instagram.png";
 import xIcon from "../Icon/Twitter X.png";
-import TextInput from "./ui/TextInput";
 import Button from "./ui/button";
 export default function Footer() {
   return (

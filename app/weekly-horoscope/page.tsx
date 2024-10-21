@@ -2,7 +2,7 @@ import Image from "next/image";
 import placeHolder from "../../images/Placeholder2.png";
 import ZodiacCard from "@/components/ui/ZodiacCard";
 import Footer from "@/components/Footer";
-export default function () {
+export default function WeeklyHororscope() {
   return (
     <div className="text-white relative">
       <h1 className="font-custom1 text-5xl sm:text-7xl mt-24 text-center hover:text-[#DBF77E]">
