@@ -55,6 +55,8 @@ export default function HororscopeForm() {
         console.log("error while creating a user");
       }
     } catch (error) {
+      console.log("error ", error);
+
       toast.error("error in while filling form try again after some time");
     }
   }
@@ -121,9 +123,14 @@ export default function HororscopeForm() {
               <label htmlFor="Gender" className="text-white mb-2 ">
                 Gender
               </label>
-              <select className="sm:w-56 w-full h-8 border rounded-sm ">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
+              <select
+                className="sm:w-56 w-full h-8 border rounded-sm "
+                onChange={(e) => {
+                  setGender(e.target.value as Gender);
+                }}
+              >
+                <option value={Gender.Male}>Male</option>
+                <option value={Gender.Female}>Female</option>
               </select>
             </div>
           </div>

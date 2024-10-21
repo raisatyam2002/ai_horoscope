@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import checkToken from "@/actions/checkToken";
@@ -8,18 +7,20 @@ import getUserDetailsFromDb from "@/actions/getUserDetailsFromDb";
 import getHoroscopeDetails from "@/actions/getHoroscopeDetailsAi";
 import { userTypes } from "@/types/userTypes";
 import { toast } from "react-toastify";
-import HoroscopeFiled from "../../../components/HoroscopeFields";
 import Loader from "@/components/Loader";
 import ZodiacSignDetail from "@/components/ZodiacSignDetails";
 import FlipCard from "@/components/CardFlip";
-
+interface fieldInterface {
+  name: string;
+  value: string | undefined;
+  color: string;
+}
 export default function UserHoroscope() {
   const router = useRouter();
   const params = useParams();
   const { firstName } = params;
   const userToken = localStorage.getItem("userToken");
   const name = Array.isArray(firstName) ? firstName[0] : firstName;
-  const [openPanel, setOpenPanel] = useState<string | null>(null);
   const [userDetails, setUserDetails] = useState<userTypes | null>(null);
   const [general, setGeneral] = useState<string | undefined>();
   const [health, setHealth] = useState<string | undefined>();
@@ -33,9 +34,6 @@ export default function UserHoroscope() {
   fields.push({ name: "love", value: love, color: "red" });
   fields.push({ name: "career", value: career, color: "blue" });
 
-  const togglePanel = (panel: string) => {
-    setOpenPanel(openPanel === panel ? null : panel);
-  };
   useEffect(() => {
     const checkUserToken = async () => {
       console.log("userToken ", userToken);
@@ -55,12 +53,17 @@ export default function UserHoroscope() {
               setUserId(response.payload.userId);
             }
           }
-        } catch (error: any) {
+        } catch (error: unknown) {
           toast.error("Error while fetching horoscope");
           console.error("Error details: ", error);
 
-          if (error.message === "jwt expired") {
-            localStorage.removeItem("userToken");
+          if (error instanceof Error) {
+            // Now TypeScript knows that 'error' has a 'message' property
+            if (error.message === "jwt expired") {
+              localStorage.removeItem("userToken");
+            }
+          } else {
+            console.error("An unknown error occurred");
           }
           router.push("/");
         }
@@ -94,7 +97,7 @@ export default function UserHoroscope() {
           } else {
             console.error(response.message);
           }
-        } catch (error: any) {
+        } catch (error: unknown) {
           console.error(error);
         }
       };
@@ -134,7 +137,7 @@ export default function UserHoroscope() {
 
         <div className="">
           <div className="mt-6 space-y-4 md:space-y-0 md:grid  md:grid-cols-3  md:space-x-5 ml-4 flex-col item-center">
-            {fields.map((field: any, index: number) => {
+            {fields.map((field: fieldInterface, index: number) => {
               const fieldName = field.name;
               const fieldState = field.value;
               const color = field.color;

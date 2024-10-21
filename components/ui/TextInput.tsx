@@ -18,8 +18,8 @@ export default function TextInput<T>({
         className={className}
         type={type}
         id={label}
-        onChange={(e: any) => {
-          setState(e.target.value);
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          setState(e.target.value as unknown as T);
         }}
       />
     </div>
