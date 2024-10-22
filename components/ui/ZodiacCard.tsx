@@ -23,6 +23,6 @@ function getTimePeriod() {
   prevDate.setMonth(currDate.getMonth() - 1);
   const prevMonth = prevDate.toLocaleString("default", { month: "short" });
   const nextYear = (currDate.getFullYear() + 1).toString().slice(-2);
-  console.log(currMonth, currYear, prevMonth, nextYear);
+  // console.log(currMonth, currYear, prevMonth, nextYear);
   return { currMonth, currYear, prevMonth, nextYear };
 }

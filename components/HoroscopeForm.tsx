@@ -7,12 +7,14 @@ import createUser from "../actions/createUser";
 import { cities } from "../data/cities";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { userObject } from "../zodValidator/zodUsername";
+
 export default function HororscopeForm() {
   const router = useRouter();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [placeOfBirth, setPlaceOfBirth] = useState("");
-  const [gender, setGender] = useState<Gender>();
+  const [gender, setGender] = useState<Gender>(Gender.Male);
   const [timeOfBirth, setTimeOfBirth] = useState("");
   const [dateOfBirth, setDateofBirth] = useState("");
   const [email, setEmail] = useState("");
@@ -32,27 +34,47 @@ export default function HororscopeForm() {
   async function handleSubmit() {
     try {
       const dateObj = new Date(dateOfBirth);
-
-      const respone = await createUser({
-        firstName,
-        lastName,
-        dateObj,
-        gender,
-        placeOfBirth,
-        timeOfBirth,
-        email,
+      const isDataValid = userObject.safeParse({
+        firstName: firstName,
+        lastName: lastName,
+        placeOfBirth: placeOfBirth,
+        dateOfBirth: dateOfBirth,
+        gender: gender,
+        timeOfBirth: timeOfBirth,
+        email: email,
       });
-      if (respone.success) {
-        console.log("debug");
 
-        toast.success("form filled successfully!");
-        if (respone.token) {
-          localStorage.setItem("userToken", respone.token);
-          router.push(`/horoscope/${firstName}`);
+      console.log("zod validity ", isDataValid);
+
+      if (isDataValid.success) {
+        const respone = await createUser({
+          firstName,
+          lastName,
+          dateObj,
+          gender,
+          placeOfBirth,
+          timeOfBirth,
+          email,
+        });
+        if (respone.success) {
+          console.log("debug");
+
+          toast.success("form filled successfully!");
+          if (respone.token) {
+            localStorage.setItem("userToken", respone.token);
+            setFirstName("");
+            setLastName(""), setTimeOfBirth("");
+            setPlaceOfBirth("");
+            setEmail("");
+            setDateofBirth("");
+            router.push(`/horoscope/${firstName}`);
+          }
+        } else {
+          toast.error("invalid details");
+          console.log("error while creating a user");
         }
       } else {
-        toast.error("invalid details");
-        console.log("error while creating a user");
+        toast.error("data is invalid,please fill form again");
       }
     } catch (error) {
       console.log("error ", error);

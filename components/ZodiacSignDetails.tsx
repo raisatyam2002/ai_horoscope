@@ -21,7 +21,7 @@ export default function ZodiacSignDetail({
   console.log("Next Year: ", nextYear);
 
   return (
-    <div className="flex justify-center gap-24">
+    <div className="flex  flex-col items-center md:flex-row md:justify-center md:gap-24">
       <Image
         src={zodiacImages["ARIES"]}
         alt="sign"

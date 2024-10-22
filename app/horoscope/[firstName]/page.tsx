@@ -135,7 +135,7 @@ export default function UserHoroscope() {
           <ZodiacSignDetail fieldState={general} />
         </div>
 
-        <div className="">
+        <div className="flex justify-center">
           <div className="mt-6 space-y-4 md:space-y-0 md:grid  md:grid-cols-3  md:space-x-5 ml-4 flex-col item-center">
             {fields.map((field: fieldInterface, index: number) => {
               const fieldName = field.name;
