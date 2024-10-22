@@ -10,11 +10,20 @@ export default function FlipCard({
   color: string;
 }) {
   const styles = {
-    card: {
+    frontCard: {
+      background: "grey",
+      color: "white",
+      borderRadius: 10,
+      textAlign: "center" as const,
+      fontSize: "20px",
+      paddingTop: "50px",
+    },
+    backCard: {
       background: color,
       color: "white",
       borderRadius: 10,
       textAlign: "center" as const,
+      paddingTop: "50px",
     },
     check: {
       height: "200px",
@@ -25,9 +34,10 @@ export default function FlipCard({
   return (
     <ReactFlipCard
       containerStyle={styles.check}
-      frontStyle={styles.card}
-      backStyle={styles.card}
-      frontComponent={<div>{fieldName}</div>}
+      frontStyle={styles.frontCard}
+      backStyle={styles.backCard}
+      frontCss=""
+      frontComponent={<div>{fieldName.toUpperCase()}</div>}
       backComponent={<div>{fieldState}</div>}
     />
   );
