@@ -8,7 +8,6 @@ import { cities } from "../data/cities";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { userObject } from "../zodValidator/zodUsername";
-
 export default function HororscopeForm() {
   const router = useRouter();
   const [firstName, setFirstName] = useState("");
@@ -47,7 +46,7 @@ export default function HororscopeForm() {
       console.log("zod validity ", isDataValid);
 
       if (isDataValid.success) {
-        const respone = await createUser({
+        const response = await createUser({
           firstName,
           lastName,
           dateObj,
@@ -56,14 +55,15 @@ export default function HororscopeForm() {
           timeOfBirth,
           email,
         });
-        if (respone.success) {
+        if (response.success) {
           console.log("debug");
 
           toast.success("form filled successfully!");
-          if (respone.token) {
-            localStorage.setItem("userToken", respone.token);
+          if (response.token) {
+            localStorage.setItem("userToken", response.token);
             setFirstName("");
-            setLastName(""), setTimeOfBirth("");
+            setLastName("");
+            setTimeOfBirth("");
             setPlaceOfBirth("");
             setEmail("");
             setDateofBirth("");
