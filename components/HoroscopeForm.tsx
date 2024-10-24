@@ -46,21 +46,21 @@ export default function HororscopeForm() {
       console.log("zod validity ", isDataValid);
 
       if (isDataValid.success) {
-        const response = await createUser({
-          firstName,
-          lastName,
-          dateObj,
-          gender,
-          placeOfBirth,
-          timeOfBirth,
-          email,
-        });
-        if (response.success) {
-          console.log("debug");
-
-          toast.success("form filled successfully!");
+        try {
+          const response = await createUser({
+            firstName,
+            lastName,
+            dateObj,
+            gender,
+            placeOfBirth,
+            timeOfBirth,
+            email,
+          });
           if (response.token) {
             localStorage.setItem("userToken", response.token);
+            console.log("debug");
+
+            toast.success("form filled successfully!");
             setFirstName("");
             setLastName("");
             setTimeOfBirth("");
@@ -69,12 +69,14 @@ export default function HororscopeForm() {
             setDateofBirth("");
             router.push(`/horoscope/${firstName}`);
           }
-        } else {
-          toast.error("invalid details");
-          console.log("error while creating a user");
+        } catch (error) {
+          console.log("error ", error);
+
+          toast.error("server error");
         }
       } else {
-        toast.error("data is invalid,please fill form again");
+        toast.error("invalid details");
+        console.log("error while creating a user");
       }
     } catch (error) {
       console.log("error ", error);
